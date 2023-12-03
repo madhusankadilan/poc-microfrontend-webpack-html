@@ -1,0 +1,33 @@
+<!-- module2.html -->
+<div>
+   <h2>Module 2</h2>
+   <div id="output"></div>
+   <div>
+      <h3>Load Module 3 when button click</h3>
+      <button id="loadModule3">Load Module 3</button>
+      <div id="module3Container"></div>
+   </div>
+</div>
+
+<script>
+   document.addEventListener('customEvent', function (event) {
+      const message = event.detail.message;
+      document.getElementById('output').innerHTML = `Received message: ${message}`;
+   });
+
+   document.getElementById('loadModule3').addEventListener('click', async function () {
+      const container = document.getElementById('module3Container');
+      const response = await fetch('./modules/module3.html');
+      const text = await response.text();
+   
+      container.innerHTML = text;
+
+      const containerScripts = container.querySelector('script');
+
+      if (containerScripts) {
+         const script = document.createElement('script');
+         script.text = containerScripts.text;
+         container.appendChild(script);
+      }
+   });
+</script>

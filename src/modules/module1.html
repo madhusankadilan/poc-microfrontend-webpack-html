@@ -1,0 +1,12 @@
+<!-- module1.html -->
+<div>
+   <h2>Module 1</h2>
+   <button id="triggerEvent">Trigger Event</button>
+</div>
+
+<script>
+   document.getElementById('triggerEvent').addEventListener('click', function () {
+      const event = new CustomEvent('customEvent', { detail: { message: 'Hello from Module 1' } });
+      document.dispatchEvent(event);
+   });
+</script>
