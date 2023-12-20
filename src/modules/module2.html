@@ -1,18 +1,43 @@
 <!-- module2.html -->
-<div>
-   <h2>Module 2</h2>
-   <div id="output"></div>
-   <div>
-      <h3>Load Module 3 when button click</h3>
-      <button id="loadModule3">Load Module 3</button>
-      <div id="module3Container"></div>
+<style>
+   .module-02-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Courier New', Courier, monospace;
+      color: white;
+      padding: 2rem;
+      font-size: 1rem;
+   }
+
+   .module-02-header {
+      text-align: center;
+      text-shadow: 2px 2px 1px #6a6767;
+      font-size: 2rem;
+   }
+
+   .output {
+      background-color: #2e7d32;
+      padding: 1rem;
+   }
+</style>
+
+<div class="module-02-container">
+   <h2 class="module-02-header">Micro Frontend - 02</h2>
+   <p>Message from micro frontend 01 will be listed here when after click on the above button.</p>
+   <p id="output"></p>
+   <p>Click below button to load the Micro Front 03. The button click will dynamically load Micro Frontend 03.</p>
+   <div class="button-wrapper">
+      <button id="loadModule3" class="button">Load Module 3</button>
    </div>
 </div>
 
 <script>
    document.addEventListener('customEvent', function (event) {
       const message = event.detail.message;
-      document.getElementById('output').innerHTML = `Received message: ${message}`;
+      const output = document.getElementById('output');
+      output.innerHTML = `Received message: ${message}`;
+      output.classList.add('output');
    });
 
    document.getElementById('loadModule3').addEventListener('click', async function () {
@@ -21,6 +46,8 @@
       const text = await response.text();
    
       container.innerHTML = text;
+      container.classList.add('module-container');
+      container.classList.remove('d-none');
 
       const containerScripts = container.querySelector('script');
 
